@@ -43,5 +43,29 @@ class Seance{
         return $this->etat;
     }
 
+    /**
+     * @param mixed $idSeance
+     */
+    public function setIdSeance($idSeance)
+    {
+        $this->idSeance = $idSeance;
+    }
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * @param mixed $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
+
 
 }
