@@ -11,7 +11,7 @@ class Utilisateur{
     private $telephone;
     private $adresse;
     private $motDePasse;
-    private $status;
+    private $statut;
     private $gestion;
 
     /**

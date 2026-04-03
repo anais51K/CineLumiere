@@ -4,9 +4,9 @@ namespace modele;
 
 class Reservation{
     private $idReservation;
-    private $nbPlacesSenior;
-    private $nbPlacesEtudiant;
-    private $nbPlacesAdulte;
+    private $nbrePlacesSenior;
+    private $nbrePlacesEtudiant;
+    private $nbrePlacesAdulte;
     private $etat;
     private $statut;
     private $modePaiement;
