@@ -109,6 +109,78 @@ class Film{
         return $this->bandeAnnonce;
     }
 
+    /**
+     * @param mixed $idFilm
+     */
+    public function setIdFilm($idFilm)
+    {
+        $this->idFilm = $idFilm;
+    }
+
+    /**
+     * @param mixed $nom
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @param mixed $duree
+     */
+    public function setDuree($duree)
+    {
+        $this->duree = $duree;
+    }
+
+    /**
+     * @param mixed $affiche
+     */
+    public function setAffiche($affiche)
+    {
+        $this->affiche = $affiche;
+    }
+
+    /**
+     * @param mixed $genre
+     */
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+    }
+
+    /**
+     * @param mixed $age_min
+     */
+    public function setAgeMin($age_min)
+    {
+        $this->age_min = $age_min;
+    }
+
+    /**
+     * @param mixed $realisateur
+     */
+    public function setRealisateur($realisateur)
+    {
+        $this->realisateur = $realisateur;
+    }
+
+    /**
+     * @param mixed $dateSortie
+     */
+    public function setDateSortie($dateSortie)
+    {
+        $this->dateSortie = $dateSortie;
+    }
+
+    /**
+     * @param mixed $bandeAnnonce
+     */
+    public function setBandeAnnonce($bandeAnnonce)
+    {
+        $this->bandeAnnonce = $bandeAnnonce;
+    }
+
 
 
 
