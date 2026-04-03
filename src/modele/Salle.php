@@ -2,7 +2,11 @@
 
 namespace modele;
 
-class Salle
-{
+class Salle{
+    private $idSalle;
+    private $capaciteMax;
+    private $code;
+    private $etat;
+
 
 }
