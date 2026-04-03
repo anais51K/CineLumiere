@@ -19,5 +19,29 @@ class Seance{
         $this->etat = $etat;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdSeance()
+    {
+        return $this->idSeance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
 
 }
