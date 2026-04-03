@@ -31,5 +31,61 @@ class Reservation{
         $this->modePaiement = $modePaiement;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdReservation()
+    {
+        return $this->idReservation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbPlacesSenior()
+    {
+        return $this->nbPlacesSenior;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbPlacesEtudiant()
+    {
+        return $this->nbPlacesEtudiant;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNbPlacesAdulte()
+    {
+        return $this->nbPlacesAdulte;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModePaiement()
+    {
+        return $this->modePaiement;
+    }
+
 
 }
