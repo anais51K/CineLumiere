@@ -2,7 +2,7 @@
 
 namespace traitement;
 
-require_once "src/bdd/Bdd.php";
+require_once "../bdd/Bdd.php";
 require_once '../modele/CodePromo.php';
 
 class NewCodePromo {
