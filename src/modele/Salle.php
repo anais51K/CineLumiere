@@ -54,5 +54,37 @@ class Salle{
         return $this->etat;
     }
 
+    /**
+     * @param mixed $idSalle
+     */
+    public function setIdSalle($idSalle)
+    {
+        $this->idSalle = $idSalle;
+    }
+
+    /**
+     * @param mixed $capaciteMax
+     */
+    public function setCapaciteMax($capaciteMax)
+    {
+        $this->capaciteMax = $capaciteMax;
+    }
+
+    /**
+     * @param mixed $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
+     * @param mixed $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
+
 
 }
