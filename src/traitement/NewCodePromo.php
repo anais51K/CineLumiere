@@ -2,11 +2,19 @@
 
 namespace traitement;
 
-class NewCodePromo{
-require_once '../bdd/Bdd.php';
+require_once "src/bdd/Bdd.php";
 require_once '../modele/CodePromo.php';
 
+class NewCodePromo {
 
-if(isset($_POST['codePromo']) && isset($_POST['pourcentageReduction'])){
-$codePromo = new CodePromo(null, $_POST['codePromo'], $_POST['pourcentageReduction'], true);
+    public function __construct() {
+        if (isset($_POST['codePromo']) && isset($_POST['pourcentageReduction'])) {
+            $codePromo = new CodePromo(
+                null,
+                $_POST['codePromo'],
+                $_POST['pourcentageReduction'],
+                true
+            );
+        }
+    }
 }
