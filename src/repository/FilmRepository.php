@@ -43,4 +43,5 @@ class FilmRepository{
         $req->bindValue(':date_sortie', $film->getDateSortie());
         $req->bindValue(':bande_annonce', $film->getBandeAnnonce());
         $req->execute();
+
 }
