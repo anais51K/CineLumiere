@@ -8,7 +8,7 @@ class Film{
     private $duree;
     private $affiche;
     private $genre;
-    private $age_min;
+    private $ageMin;
     private $realisateur;
     private $dateSortie;
     private $bandeAnnonce;
