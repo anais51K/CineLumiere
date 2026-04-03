@@ -2,7 +2,10 @@
 
 namespace modele;
 
-class Seance
-{
+class Seance{
+    private $idSeance;
+    private $date;
+    private $etat;
+
 
 }
