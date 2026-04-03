@@ -1,7 +1,6 @@
 <?php
 
-class Bdd
-{
+class Bdd{
     private $connexionBdd;
     private $identifiant = "root";
     private $motDePasse = "";
