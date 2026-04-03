@@ -22,5 +22,37 @@ class Salle{
         $this->etat = $etat;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdSalle()
+    {
+        return $this->idSalle;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCapaciteMax()
+    {
+        return $this->capaciteMax;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
 
 }
