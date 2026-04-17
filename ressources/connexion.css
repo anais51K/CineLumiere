@@ -1,0 +1,159 @@
+/* --- FOND CLAIR --- */
+body {
+    background: #f4f6f9;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inter", sans-serif;
+    color: #333;
+}
+
+/* --- CONTAINER CENTRÉ --- */
+.container {
+    background: #ffffff;
+    padding: 40px 50px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    animation: fadeIn 0.6s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* --- TITRE --- */
+h1 {
+    color: #2f2f2f;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    margin: 0;
+    font-size: 22px;
+}
+
+/* --- FORMULAIRE --- */
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- GROUPES DE CHAMPS --- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* --- LABELS --- */
+.form-label {
+    font-weight: 600;
+    color: #444;
+    font-size: 14px;
+}
+
+/* --- INPUTS --- */
+.form-control {
+    width: 100%;
+    background: #fafafa;
+    border: 1px solid #cfcfcf;
+    color: #333;
+    padding: 12px;
+    border-radius: 6px;
+    transition: 0.25s;
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    outline: none;
+}
+
+.form-control:focus {
+    border-color: #555;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+    background: #fff;
+}
+
+/* --- LIEN MOT DE PASSE OUBLIÉ --- */
+.forgot-link {
+    text-align: right;
+    margin-top: -4px;
+}
+
+.forgot-link a {
+    font-size: 12px;
+    color: #888;
+    text-decoration: none;
+}
+
+.forgot-link a:hover {
+    text-decoration: underline;
+}
+
+/* --- BOUTON --- */
+.btn-primary {
+    background: #555;
+    border: none;
+    padding: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    color: #fff;
+    transition: 0.25s;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background: #333;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+/* --- SÉPARATEUR --- */
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e0e0e0;
+}
+
+.divider span {
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* --- LIEN INSCRIPTION --- */
+.box-register {
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+}
+
+.box-register a {
+    color: #555;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.box-register a:hover {
+    text-decoration: underline;
+}
+
+/* --- ANIMATION --- */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
