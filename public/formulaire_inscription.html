@@ -1,42 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Formulaire d'inscription</title>
-    <link rel="stylesheet" href="../ressources/inscription.css">
+  <meta charset="UTF-8">
+  <title>Formulaire d'inscription</title>
+  <link rel="stylesheet" href="../ressources/inscription.css">
 </head>
 <body>
+
 <div class="container mt-5 mb-5">
   <h1 class="text-center mb-4">Inscription</h1>
 
-  <form class="mx-auto" style="max-width: 600px;">
+
+  <form action="../traitements/inscription_traitement.php"  method="POST">
 
     <div class="mb-3">
-      <label for="name" class="form-label">Prénom:</label>
-      <input type="text" class="form-control" id="prenom" required>
+      <label for="prenom" class="form-label">Prénom :</label>
+      <input type="text" class="form-control" id="prenom" name="prenom" required>
     </div>
 
     <div class="mb-3">
-      <label for="name" class="form-label">Nom:</label>
-      <input type="text" class="form-control" id="name" required>
+      <label for="nom" class="form-label">Nom :</label>
+      <input type="text" class="form-control" id="nom" name="nom" required>
     </div>
 
     <div class="mb-3">
-      <label for="email" class="form-label">Email:</label>
-      <input type="email" class="form-control" id="email" required>
+      <label for="email" class="form-label">Email :</label>
+      <input type="email" class="form-control" id="email" name="email" required>
     </div>
 
     <div class="mb-3">
-      <label for="message" class="form-label">Mot de passe:</label>
-      <textarea class="form-control" id="message"  required></textarea>
+      <label for="password" class="form-label">Mot de passe :</label>
+      <input type="password" class="form-control" id="password" name="password" required>
     </div>
 
     <button type="submit" class="btn btn-primary w-100">Envoyer</button>
   </form>
+
   <p class="box-register">
-    Vous avez déja un compte ?
-    <a href="connexion.html">Connectez-vous ici</a>
+    Vous avez déjà un compte ?
+    <a href="connexion.php">Connectez-vous ici</a>
   </p>
 </div>
+
 </body>
 </html>
