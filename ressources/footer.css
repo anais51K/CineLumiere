@@ -1,0 +1,22 @@
+/* ------------------------------ */
+/* FOOTER CLAIR & PROFESSIONNEL   */
+/* ------------------------------ */
+
+footer {
+    background: #f5f7fa;
+    border-top: 2px solid #d0d4da;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+}
+
+footer p {
+    color: #5a5a5a;
+    font-size: 0.95rem;
+    letter-spacing: 0.3px;
+    transition: 0.3s;
+}
+
+footer p:hover {
+    color: #2a4d8f;
+}
