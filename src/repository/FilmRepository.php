@@ -40,7 +40,7 @@ class FilmRepository
 
     public function ajouterFilm(Film $film)
     {
-        $sql = "";
+        $sql = "Insert Into ...";
         $req = $this->connexionBdd->prepare($sql);
         $req->bindValue(':nom', $film->getNom());
         $req->bindValue(':duree', $film->getDuree());
