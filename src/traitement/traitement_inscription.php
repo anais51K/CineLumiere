@@ -1,63 +1,85 @@
 <?php
 session_start();
 
-// 1. Connexion à la base de données
-$host = "localhost";
-$dbname = "cine_lumiere";
-$username = "admin";
-$password = "1234";
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion : " . $e->getMessage());
-}
-
-//récupère tout
+// Vérifier que le formulaire a été soumis
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../public/formulaire_inscription.html");
-    exit;
+    header("Location: ../../public/formulaire_inscription.html");
+    exit();
 }
 
-$prenom     = trim($_POST["prenom"] );
-$nom        = trim($_POST["nom"]  );
-$email      = trim($_POST["email"] );
-$motDePasse = trim($_POST["password"] );
+// Récupération des données
+$prenom   = trim($_POST["prenom"] ?? "");
+$nom      = trim($_POST["nom"] ?? "");
+$email    = trim($_POST["email"] ?? "");
+$password = trim($_POST["password"] ?? "");
 
-//recuperation avec vérification que tout les champs sont remplis
-if (empty($prenom) || empty($nom) || empty($email) || empty($motDePasse)) {
-    $_SESSION['error'] = "Tous les champs sont obligatoires.";
-    header("Location: ../public/formulaire_inscription.html");
-    exit;
+// Vérification des champs
+if (empty($prenom) || empty($nom) || empty($email) || empty($password)) {
+    $_SESSION["error"] = "Tous les champs sont obligatoires.";
+    header("Location: ../../public/formulaire_inscription.html");
+    exit();
 }
 
-$hash = password_hash($motDePasse, PASSWORD_DEFAULT);
+// Vérification email
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION["error"] = "Email invalide.";
+    header("Location: ../../public/formulaire_inscription.html");
+    exit();
+}
 
-//envoie vers la bdd
-$sql = "INSERT INTO users (prenom, nom, email, hash) VALUES (:prenom, :nom, :email, :hash)";
-$stmt = $pdo->prepare($sql);
+// Hash du mot de passe
+$mdp_hash = password_hash($password, PASSWORD_DEFAULT);
 
+// Connexion BDD
 try {
-    $stmt->execute([
-        ":prenom" => $prenom,
-        ":nom"    => $nom,
-        ":email"  => $email,
-        ":hash"   => $hash
-    ]);
-
-    $_SESSION['success'] = "Inscription réussie ";
-    header("Location: ../public/connexion.html");
-    exit;
-
-} catch (PDOException $e) {
-
-    //verifier si email deja utilisé ou pas pour un compte deja existant
-    if ($e->getCode() == 23000) {
-        $_SESSION['error'] = "Cet email est déjà utilisé.";
-    } else {
-        $_SESSION['error'] = "Erreur : " . $e->getMessage();
-    }
-    header("Location: ../public/formulaire_inscription.html");
-    exit;
+    $pdo = new PDO(
+        "mysql:host=localhost;dbname=cine_lumiere;charset=utf8",
+        "admin",
+        "1234",
+        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
+    );
+} catch (Exception $e) {
+    $_SESSION["error"] = "Erreur de connexion à la base de données.";
+    header("Location: ../../public/formulaire_inscription.html");
+    exit();
 }
+
+// Vérifier si l'email existe déjà
+$check = $pdo->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
+$check->execute([$email]);
+
+if ($check->rowCount() > 0) {
+    $_SESSION["error"] = "Cet email est déjà utilisé.";
+    header("Location: ../../public/formulaire_inscription.html");
+    exit();
+}
+
+// Insertion dans la base
+$insert = $pdo->prepare("
+    INSERT INTO utilisateur (nom, prenom, email, telephone, mdp, adresse, date_naissance, statut, gestion)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+");
+
+// Valeurs par défaut
+$telephone = null;
+$adresse = null;
+$date_naissance = null;
+$statut = 'client';
+$gestion = 0;
+
+$insert->execute([
+    $nom,
+    $prenom,
+    $email,
+    $telephone,
+    $mdp_hash,
+    $adresse,
+    $date_naissance,
+    $statut,
+    $gestion
+]);
+
+// Succès
+$_SESSION["success"] = "Inscription réussie ! Vous pouvez maintenant vous connecter.";
+header("Location: ../../public/connexion.php");
+exit();
