@@ -1,37 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ciné Lumières </title>
-    <link href="../ressources/header.css" rel="stylesheet">
+    <title>Ciné Lumières</title>
 
+    <!-- CSS existants -->
+    <link href="../ressources/header.css" rel="stylesheet">
+    <link href="../ressources/footer.css" rel="stylesheet">
+    <link href="../ressources/page_accueil.css" rel="stylesheet">
 </head>
+
 <body>
+
+<!-- ================= HEADER ================= -->
 <nav class="navbar navbar-expand-lg py-3">
     <div class="container-fluid">
 
         <a class="navbar-brand fs-3 fw-bold" href="accueil.html">Cinéma Lumières</a>
 
-
-        <!-- BOUTON BURGER -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuBurger">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="menuBurger">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#accueil">🏠 Films</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#meslivres">📖 Séances</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#connexion">📞 Contact</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="connexion.html">🔑 Connexion</a>
-                </li>
+                <li class="nav-item"><a class="nav-link" href="#films">🎬 Films</a></li>
+                <li class="nav-item"><a class="nav-link" href="#seances">📖 Séances</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">📞 Contact</a></li>
+                <li class="nav-item"><a class="nav-link" href="connexion.html">🔑 Connexion</a></li>
             </ul>
         </div>
 
@@ -39,15 +35,52 @@
 </nav>
 
 
+<!-- ================= CONTENU ================= -->
+<main class="page">
+
+    <h1 class="titre-page">Films à l'affiche</h1>
+
+    <section class="film-row">
+
+        <div class="film">
+            <img src="https://www.allocine.fr/video/player_gen_cmedia=20633111&cfilm=279306.html" alt="Michael">
+            <h3>Michael</h3>
+        </div>
+
+        <div class="film">
+            <img src="../ressources/affiches/fleurs-manguier.jpg" alt="Les Fleurs du Manguier">
+            <h3>Les Fleurs du Manguier</h3>
+        </div>
+
+        <div class="film">
+            <img src="../ressources/affiches/pour-le-meilleur.jpg" alt="Pour le Meilleur">
+            <h3>Pour le Meilleur</h3>
+        </div>
+
+        <div class="film">
+            <img src="../ressources/affiches/la-poupee.jpg" alt="La Poupée">
+            <h3>La Poupée</h3>
+        </div>
+
+        <div class="film">
+            <img src="../ressources/affiches/film5.jpg" alt="Film 5">
+            <h3>Film 5</h3>
+        </div>
+
+    </section>
+
+</main>
 
 
-<footer class="text-white py-4 mt-5"
-        style="">
+<!-- ================= FOOTER ================= -->
+<footer class="text-white py-4 mt-5">
     <div class="container text-center">
-        <p class="mb-2 fs-5">© 2025 – Tous droits réservés Anaïs Kriegel--Grapain - Abdel-Hamid El-Ferkh - Younes Leulmi - Walid Souali</p>
-
+        <p class="mb-2 fs-5">
+            © 2025 – Tous droits réservés Anaïs Kriegel--Grapain - Abdel-Hamid El-Ferkh -
+            Younes Leulmi - Walid Souali
+        </p>
     </div>
-    <link href="../ressources/footer.css" rel="stylesheet">
 </footer>
+
 </body>
 </html>

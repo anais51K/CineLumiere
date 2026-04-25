@@ -1,0 +1,76 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #ffffff; /* FOND BLANC PARTOUT */
+    color: #1e293b;      /* gris foncé lisible */
+    font-family: system-ui, sans-serif;
+}
+
+/* PAGE */
+.page {
+    padding: 3rem 1rem;
+    text-align: center;
+    background: #ffffff; /* fond blanc pour la zone carrousel */
+}
+
+.titre-page {
+    font-size: 2.4rem;
+    margin-bottom: 2.5rem;
+    color: #facc15; /* jaune cinéma */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* RANGÉE DE FILMS */
+.film-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 1rem;
+    background: #ffffff; /* blanc derrière les affiches */
+}
+
+/* CARTE FILM */
+.film {
+    width: 200px;
+    text-align: center;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.film img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 0.8rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* ombre douce */
+}
+
+/* TITRE FILM */
+.film h3 {
+    margin-top: 0.8rem;
+    font-size: 1.1rem;
+    color: #1e293b;
+}
+
+/* Effet hover premium */
+.film:hover {
+    transform: scale(1.06);
+    filter: brightness(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .film {
+        width: 150px;
+    }
+
+    .film img {
+        height: 220px;
+    }
+}
