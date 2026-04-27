@@ -74,3 +74,33 @@ body {
         height: 220px;
     }
 }
+
+.ugc-carousel {
+    width: 100%;
+    overflow-x: auto;      /* scroll horizontal */
+    overflow-y: hidden;
+    padding: 1rem 0;
+    scroll-behavior: smooth;
+}
+
+.ugc-track {
+    display: flex;         /* films en ligne */
+    flex-direction: row;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.film {
+    flex: 0 0 180px;       /* largeur fixe comme UGC */
+    text-align: center;
+}
+
+.film img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 0.6rem;
+}
+
+
+
