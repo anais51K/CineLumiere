@@ -6,37 +6,37 @@
 }
 
 body {
-    background: #ffffff; /* FOND BLANC PARTOUT */
-    color: #1e293b;      /* gris foncé lisible */
+    background: #ffffff;
+    color: #1e293b;
     font-family: system-ui, sans-serif;
 }
 
-/* PAGE */
+/* ================= PAGE ================= */
 .page {
     padding: 3rem 1rem;
     text-align: center;
-    background: #ffffff; /* fond blanc pour la zone carrousel */
+    background: #ffffff;
 }
 
 .titre-page {
     font-size: 2.4rem;
     margin-bottom: 2.5rem;
-    color: #facc15; /* jaune cinéma */
+    color: #94a3b8; /* bleu-gris clair premium */
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
-/* RANGÉE DE FILMS */
+/* ================= RANGÉE DE FILMS ================= */
 .film-row {
     display: flex;
     justify-content: center;
     gap: 2rem;
     flex-wrap: wrap;
     padding: 1rem;
-    background: #ffffff; /* blanc derrière les affiches */
+    background: #ffffff;
 }
 
-/* CARTE FILM */
+/* ================= CARTE FILM ================= */
 .film {
     width: 200px;
     text-align: center;
@@ -48,14 +48,13 @@ body {
     height: 300px;
     object-fit: cover;
     border-radius: 0.8rem;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* ombre douce */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-/* TITRE FILM */
 .film h3 {
     margin-top: 0.8rem;
     font-size: 1.1rem;
-    color: #1e293b;
+    color: #334155;
 }
 
 /* Effet hover premium */
@@ -64,7 +63,7 @@ body {
     filter: brightness(1.05);
 }
 
-/* RESPONSIVE */
+/* Responsive films */
 @media (max-width: 600px) {
     .film {
         width: 150px;
@@ -75,23 +74,24 @@ body {
     }
 }
 
+/* ================= CARROUSEL UGC ================= */
 .ugc-carousel {
     width: 100%;
-    overflow-x: auto;      /* scroll horizontal */
+    overflow-x: auto;
     overflow-y: hidden;
     padding: 1rem 0;
     scroll-behavior: smooth;
 }
 
 .ugc-track {
-    display: flex;         /* films en ligne */
+    display: flex;
     flex-direction: row;
     gap: 2rem;
     padding: 0 1rem;
 }
 
 .film {
-    flex: 0 0 180px;       /* largeur fixe comme UGC */
+    flex: 0 0 180px;
     text-align: center;
 }
 
@@ -102,5 +102,113 @@ body {
     border-radius: 0.6rem;
 }
 
+/* ================= FORMULAIRE CONTACT ================= */
+.contact-wrapper {
+    background: #334155;
+    padding: 3rem 1rem;
+    margin-top: 3rem;
+    text-align: center;
+    border-radius: 0.8rem;
+}
 
+.contact-wrapper h1 {
+    color: #e2e8f0;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+}
 
+/* Bloc formulaire */
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+    text-align: left;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* Labels */
+.contact-form label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Inputs */
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-family: system-ui, sans-serif;
+    color: #334155;
+    background: #f8fafc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.35);
+    background: #ffffff;
+}
+
+/* Zone texte */
+.contact-form textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+/* Bouton */
+.contact-form button {
+    width: 100%;
+    padding: 0.85rem;
+    background: #475569;
+    color: #f1f5f9;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+    margin-top: 0.5rem;
+}
+
+.contact-form button:hover {
+    background: #64748b;
+    transform: scale(1.02);
+}
+
+.contact-form button:active {
+    transform: scale(0.98);
+}
+
+/* Responsive formulaire */
+@media (max-width: 600px) {
+    .contact-form {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+/*succès du formulaire*/
+.alert-success {
+    background-color: #d4f8d4;
+    color: #2d7a2d;
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 600;
+}

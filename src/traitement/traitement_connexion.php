@@ -13,7 +13,7 @@ $mdp = trim($_POST["password"] ?? ""); // <-- OK
 // ICI : on vérifie $mdp, pas $password !
 if (empty($email) || empty($mdp)) {
     $_SESSION["error"] = "Veuillez remplir tous les champs.";
-    header("Location: ../../public/connexion.html");
+    header("Location: ../public/connexion.html");
     exit();
 }
 
@@ -26,7 +26,7 @@ try {
     );
 } catch (Exception $e) {
     $_SESSION["error"] = "Erreur de connexion à la base de données.";
-    header("Location: ../../public/connexion.html");
+    header("Location: ../public/connexion.html");
     exit();
 }
 
@@ -36,7 +36,7 @@ $user = $req->fetch(PDO::FETCH_ASSOC);
 
 if (!$user || !password_verify($mdp, $user["mdp"])) {
     $_SESSION["error"] = "Email ou mot de passe incorrect.";
-    header("Location: ../../public/connexion.html");
+    header("Location: ../public/connexion.html");
     exit();
 }
 
