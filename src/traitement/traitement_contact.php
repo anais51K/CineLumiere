@@ -45,3 +45,4 @@ $insert->execute([
 $_SESSION["success"] = "Votre message a bien été envoyé !";
 header("Location: ../../public/accueil.html");
 exit();
+
