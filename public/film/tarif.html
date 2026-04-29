@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarifs</title>
+    <link href="../../ressources/tarifs.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+    <h2>Choisissez vos billets</h2>
+
+    <!-- IMPORTANT :
+         Cette page doit recevoir ref_seance, jour, horaire depuis la page précédente.
+         Comme tu veux du HTML pur, on laisse des champs cachés vides.
+         Ils seront remplis automatiquement par la page précédente.
+    -->
+
+    <form action="verif_connexion.php" method="POST">
+
+        <input type="hidden" name="ref_seance" value="">
+        <input type="hidden" name="jour" value="">
+        <input type="hidden" name="horaire" value="">
+
+        <div class="tarif-row">
+            <span>Adulte — 9,50 €</span>
+            <input type="number" name="nb_adulte" min="0" value="1">
+        </div>
+
+        <div class="tarif-row">
+            <span>Étudiant — 7,00 €</span>
+            <input type="number" name="nb_etudiant" min="0" value="0">
+        </div>
+
+        <div class="tarif-row">
+            <span>Senior — 6,00 €</span>
+            <input type="number" name="nb_senior" min="0" value="0">
+        </div>
+
+        <a href="../connexion.html">
+            <button type="button">Continuer</button>
+        </a>
+
+    </form>
+
+</div>
+
+
+</body>
+</html>

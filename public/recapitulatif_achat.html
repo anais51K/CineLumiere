@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Panier</title>
+</head>
+<body>
+<h1>Récapitulatif de votre achat</h1>
+
+<p><strong>Séance :</strong> <?= $jour ?> à <?= $horaire ?></p>
+
+<h3>Billets :</h3>
+<ul>
+    <li>Adultes : <?= $nb_adulte ?> × <?= $tarif_adulte ?> €</li>
+    <li>Étudiants : <?= $nb_etudiant ?> × <?= $tarif_etudiant ?> €</li>
+    <li>Seniors : <?= $nb_senior ?> × <?= $tarif_senior ?> €</li>
+</ul>
+
+<h3>Total : <?= number_format($total, 2) ?> €</h3>
+
+<form action="../../src/traitement/film/traitement_reservation.php" method="POST">
+    <input type="hidden" name="data" value="<?= $_GET['data'] ?>">
+
+    <label>Code promo :</label>
+    <input type="text" name="code_promo">
+
+    <button type="submit">Payer</button>
+</form>
+</body>
+</html>

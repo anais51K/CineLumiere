@@ -50,6 +50,8 @@
 </div>
 </div>
 <br>
+<form action="tarif.html" method="POST">
+    <input type="hidden" name="ref_seance" value="<?= $seance['idSeance'] ?>">
 <div class="seances-container">
     <input type="checkbox" id="toggleSeances">
     <label for="toggleSeances" class="seances-btn">📅 Choisir une séance</label>
@@ -124,6 +126,7 @@
 
     </div>
 </div>
+</form>
 <h1>Bande annonce</h1>
 <iframe width="560" height="315"
         src="https://www.youtube.com/embed/wOMZzFIhPL0"

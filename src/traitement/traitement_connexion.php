@@ -52,3 +52,5 @@ $_SESSION["user"] = [
 // Redirection vers la page d'accueil
 header("Location: ../../public/accueil.html");
 exit();
+
+

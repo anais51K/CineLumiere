@@ -48,7 +48,8 @@
     </div>
 </div>
 <br>
-<form action="/traitements/traitement_reservation.php" method="POST">
+<form action="tarif.html" method="POST">
+    <input type="hidden" name="ref_seance" value="<?= $seance['idSeance'] ?>">
 
 <div class="seances-container">
     <input type="checkbox" id="toggleSeances">
