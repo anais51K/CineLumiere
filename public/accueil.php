@@ -53,7 +53,7 @@ $films= $filmRepository->getAllFilm();
 /** @var Film $film */
 foreach ($films as $film){ ?>
         <div class="film">
-            <a href="film/forrest_gump.html">
+            <a href="film/film.php?id=<?=$film->getIdFilm()?>">
                 <img src="<?= $film->getAffiche() ?>"
                      alt="<?= $film->getNom() ?>">
                 <h3><?= $film->getNom() ?></h3>
