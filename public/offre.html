@@ -91,7 +91,9 @@
 <section class="add-code-section">
     <h2>Ajouter un code promo</h2>
 
-    <form id="addPromoForm" onsubmit="return addPromoCode()">
+    <!-- Le formulaire envoie directement vers ton fichier PHP -->
+    <form id="addPromoForm" action="../src/traitement/traitement_codepromo.php" method="POST">
+
         <label>Nom du code promo :</label>
         <input type="text" name="code" required placeholder="EX: NOEL2026">
 
@@ -104,11 +106,11 @@
     <div id="addPromoResult"></div>
 </section>
 
+
 <footer>
     © 2026 Ton Projet Cinéma — Personnalise ces offres selon tes besoins.
 </footer>
 
-<script src="script.js"></script>
 
 </body>
 </html>
