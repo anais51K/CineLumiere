@@ -22,7 +22,7 @@ if (empty($email) || empty($mdp)) {
 try {
     $pdo = new PDO(
         "mysql:host=localhost;dbname=cine_lumiere;charset=utf8",
-        "admin", "1234",
+        "root", "",
         [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
     );
 } catch (Exception $e) {
