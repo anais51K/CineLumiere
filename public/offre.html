@@ -5,10 +5,31 @@
     <title>Offres & Codes Promo - Cinéma</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../ressources/offre.css" rel="stylesheet">
+    <link href="../ressources/header.css" rel="stylesheet">
 </head>
 <body>
+<nav class="navbar navbar-expand-lg py-3">
+    <div class="container-fluid">
+
+        <a class="navbar-brand fs-3 fw-bold" href="accueil.html">Cinéma Lumières</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuBurger">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuBurger">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#films">🎬 Films</a></li>
+                <li class="nav-item"><a class="nav-link" href="#seances">💳 Offres</a></li>
+                <li class="nav-item"><a class="nav-link" href="connexion.html">🔑 Connexion</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
 
 <header>
+
     <h1>Offres Spéciales Cinéma</h1>
     <p>Réductions, avant-premières et codes promo pour ton projet cinéma.</p>
 </header>
@@ -67,6 +88,21 @@
 
     </section>
 </main>
+<section class="add-code-section">
+    <h2>Ajouter un code promo</h2>
+
+    <form id="addPromoForm" onsubmit="return addPromoCode()">
+        <label>Nom du code promo :</label>
+        <input type="text" name="code" required placeholder="EX: NOEL2026">
+
+        <label>Réduction (%) :</label>
+        <input type="number" name="discount" min="1" max="100" required placeholder="EX: 20">
+
+        <button type="submit" class="btn-add">Ajouter le code</button>
+    </form>
+
+    <div id="addPromoResult"></div>
+</section>
 
 <footer>
     © 2026 Ton Projet Cinéma — Personnalise ces offres selon tes besoins.
