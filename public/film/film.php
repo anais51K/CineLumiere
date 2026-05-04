@@ -140,11 +140,12 @@ $seance = $seanceRepository->getSeance($_GET["id"]);
 </form>
 <h1>Bande annonce</h1>
 <iframe width="560" height="315"
-        src="https://www.youtube.com/embed/XHhAG-YLdk8"
+        src="<?= $film->getBandeAnnonce() ?>"
         title="Bande-annonce"
         frameborder="0"
         allowfullscreen>
 </iframe>
+
 <footer class="text-white py-4 mt-5">
     <div class="container text-center">
         <p class="mb-2 fs-5">
