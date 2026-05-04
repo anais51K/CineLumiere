@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Offres & Codes Promo - Cinéma</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../ressources/offre.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <h1>Offres Spéciales Cinéma</h1>
+    <p>Réductions, avant-premières et codes promo pour ton projet cinéma.</p>
+</header>
+
+<main class="container">
+    <section class="intro">
+        Profite de ces offres pour booster la fréquentation de ton cinéma ou de ton événement :
+        tarifs réduits, packs groupes, soirées spéciales…
+    </section>
+
+    <section class="offers-grid">
+
+        <!-- Offre 1 -->
+        <article class="offer-card">
+            <div class="offer-tag">Best-seller</div>
+            <h2 class="offer-title">Soirée Première – 2 places pour le prix d’1</h2>
+            <p class="offer-subtitle">Valable sur la séance d’ouverture.</p>
+            <p class="offer-details">
+                Offre limitée aux 100 premières réservations.
+                Valable uniquement en ligne.
+            </p>
+            <div class="promo-line">
+                <span class="promo-code">PREMIERE2X1</span>
+                <button class="btn-copy" onclick="copyCode('PREMIERE2X1')">Copier</button>
+            </div>
+            <p class="meta">Valable jusqu’au 30/06/2026.</p>
+        </article>
+
+        <!-- Offre 2 -->
+        <article class="offer-card">
+            <h2 class="offer-title">Pack Groupe – -25% dès 4 billets</h2>
+            <p class="offer-subtitle">Idéal pour les sorties entre amis.</p>
+            <p class="offer-details">
+                Réduction appliquée sur le total du panier.
+            </p>
+            <div class="promo-line">
+                <span class="promo-code">CINEGROUPE25</span>
+                <button class="btn-copy" onclick="copyCode('CINEGROUPE25')">Copier</button>
+            </div>
+            <p class="meta">Hors avant-premières.</p>
+        </article>
+
+        <!-- Offre 3 -->
+        <article class="offer-card">
+            <h2 class="offer-title">Tarif Étudiant – Place à prix réduit</h2>
+            <p class="offer-subtitle">Sur présentation d’un justificatif.</p>
+            <p class="offer-details">
+                Valable du lundi au jeudi.
+            </p>
+            <div class="promo-line">
+                <span class="promo-code">ETUDCINE</span>
+                <button class="btn-copy" onclick="copyCode('ETUDCINE')">Copier</button>
+            </div>
+            <p class="meta">Réservé aux moins de 26 ans.</p>
+        </article>
+
+    </section>
+</main>
+
+<footer>
+    © 2026 Ton Projet Cinéma — Personnalise ces offres selon tes besoins.
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
