@@ -1,7 +1,5 @@
 <?php
 
-namespace repository;
-
 class SeanceRepository{
     private $connexionBdd;
     public function __construct()

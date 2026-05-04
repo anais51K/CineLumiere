@@ -1,8 +1,5 @@
 <?php
 
-namespace repository;
-
-use modele\Reservation;
 
 class ReservationRepository
 {

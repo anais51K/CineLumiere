@@ -1,6 +1,5 @@
 <?php
 
-namespace modele;
 
 class CodePromo
 {

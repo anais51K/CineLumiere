@@ -1,8 +1,5 @@
 <?php
 
-namespace repository;
-
-use modele\Film;
 
 class FilmRepository
 {
@@ -15,7 +12,7 @@ class FilmRepository
 
     public function getFilm($idFilm)
     {
-        $sql = "SELECT * FROM Film WHERE idfilm = :idfilm";
+        $sql = "SELECT * FROM Film WHERE id_film = :idFilm";
         $req = $this->connexionBdd->prepare($sql);
         $req->bindValue(':idFilm', $idFilm);
         $req->execute();

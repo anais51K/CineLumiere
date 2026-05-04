@@ -1,4 +1,8 @@
 <?php
+
+require_once "../bdd/Bdd.php";
+require_once "../modele/Utilisateur.php";
+require_once "../repository/UtilisateurRepository.php";
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -26,56 +30,21 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $mdp_hash = password_hash($password, PASSWORD_DEFAULT);
 
 try {
-    $pdo = new PDO(
-        "mysql:host=localhost;dbname=cine_lumiere;charset=utf8",
-        "root",
-        "",
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    $pdo = (new Bdd())->getConnexionBdd();
 } catch (Exception $e) {
     die("Erreur BDD : " . $e->getMessage());
 }
+$utilisateurRepository = new UtilisateurRepository();
+$utilisateur = $utilisateurRepository->getUtilisateurByEmail($email);
 
 // Vérifier si l'email existe déjà
-$check = $pdo->prepare("SELECT id_utilisateur FROM utilisateur WHERE email = ?");
-$check->execute([$email]);
-
-if ($check->rowCount() > 0) {
+if (!is_null($utilisateur)) {
     $_SESSION["error"] = "Cet email est déjà utilisé.";
     header("Location: ../../public/formulaire_inscription.html");
     exit();
 }
-
-// INSERT utilisateur
-$insertUser = $pdo->prepare("
-    INSERT INTO utilisateur (nom, prenom, email, telephone, mdp, adresse, date_naissance, statut, gestion)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-");
-
-$insertUser->execute([
-    $nom,
-    $prenom,
-    $email,
-    null,
-    $mdp_hash,
-    null,
-    null,
-    'client',
-    0
-]);
-
-// INSERT inscription
-$insertInscription = $pdo->prepare("
-    INSERT INTO inscription (Nom, Prenom, Email, Mot_de_passe)
-    VALUES (?, ?, ?, ?)
-");
-
-$insertInscription->execute([
-    $nom,
-    $prenom,
-    $email,
-    $mdp_hash
-]);
+$utilisateur = new Utilisateur(null,$nom,$prenom,null,$email,null,null,$mdp_hash,"client",0);
+$utilisateurRepository->ajouterUtilisateur($utilisateur);
 
 // REDIRECTION OK
 header("Location: ../../public/connexion.html");

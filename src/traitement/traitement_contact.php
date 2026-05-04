@@ -1,8 +1,13 @@
 <?php
+
+require_once "../bdd/Bdd.php";
+require_once "../modele/Utilisateur.php";
+require_once "../repository/UtilisateurRepository.php";
+
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../../public/accueil.html");
+    header("Location: ../../public/accueil.php");
     exit();
 }
 
@@ -11,23 +16,18 @@ $message = trim($_POST["message"] ?? "");
 
 if (empty($email) || empty($message)) {
     $_SESSION["error"] = "Tous les champs sont obligatoires.";
-    header("Location: ../../public/accueil.html");
+    header("Location: ../../public/accueil.php");
     exit();
 }
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION["error"] = "Email invalide.";
-    header("Location: ../../public/accueil.html");
+    header("Location: ../../public/accueil.php");
     exit();
 }
 
 try {
-    $pdo = new PDO(
-        "mysql:host=localhost;dbname=cine_lumiere;charset=utf8",
-        "admin",
-        "1234",
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    $pdo = (new Bdd())->getConnexionBdd();
 } catch (Exception $e) {
     die("Erreur BDD : " . $e->getMessage());
 }
@@ -43,6 +43,6 @@ $insert->execute([
 ]);
 
 $_SESSION["success"] = "Votre message a bien été envoyé !";
-header("Location: ../../public/accueil.html");
+header("Location: ../../public/accueil.php");
 exit();
 

@@ -1,7 +1,5 @@
 <?php
 
-namespace modele;
-
 class Utilisateur{
     private $idUtilisateur;
     private $nom;

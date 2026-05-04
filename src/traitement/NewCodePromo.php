@@ -1,9 +1,8 @@
 <?php
 
-namespace traitement;
-
 require_once "../bdd/Bdd.php";
 require_once '../modele/CodePromo.php';
+require_once '../repository/CodePromoRepository.php';
 
 class NewCodePromo {
 

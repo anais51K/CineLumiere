@@ -9,7 +9,15 @@ class Bdd{
 
     public function __construct()
     {
-        $this->connexionBdd = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->nomBdd, $this->identifiant, $this->motDePasse);
+        try {
+            $this->connexionBdd = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->nomBdd,
+                $this->identifiant,
+                $this->motDePasse,
+                [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+
+        } catch (Exception $e) {
+            die("Erreur BDD : " . $e->getMessage());
+        }
     }
 
     public function getConnexionBdd()

@@ -1,9 +1,5 @@
 <?php
 
-namespace repository;
-
-use modele\Utilisateur;
-
 class UtilisateurRepository
 {
     private $connexionBdd;

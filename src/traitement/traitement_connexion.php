@@ -1,4 +1,8 @@
 <?php
+require_once "../bdd/Bdd.php";
+require_once "../modele/Utilisateur.php";
+require_once "../repository/UtilisateurRepository.php";
+
 session_start();
 
 // Vérifie que la requête est bien en POST
@@ -57,5 +61,5 @@ if (!empty($_GET["redirect_data"])) {
 }
 
 // 🔵 Sinon → accueil
-header("Location: ../../public/accueil.html");
+header("Location: ../../public/accueil.php");
 exit();

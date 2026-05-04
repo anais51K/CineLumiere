@@ -1,6 +1,5 @@
 <?php
 
-namespace modele;
 
 class Film{
     private $idFilm;
@@ -24,12 +23,12 @@ class Film{
      * @param $nom
      * @param $idFilm
      */
-    public function __construct($bandeAnnonce, $dateSortie, $realisateur, $age_min, $genre, $affiche, $duree, $nom, $idFilm)
+    public function __construct($idFilm, $nom, $duree, $affiche, $genre, $age_min, $realisateur, $dateSortie, $bandeAnnonce)
     {
         $this->bandeAnnonce = $bandeAnnonce;
         $this->dateSortie = $dateSortie;
         $this->realisateur = $realisateur;
-        $this->age_min = $age_min;
+        $this->ageMin = $age_min;
         $this->genre = $genre;
         $this->affiche = $affiche;
         $this->duree = $duree;
