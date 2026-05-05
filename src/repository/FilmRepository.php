@@ -1,5 +1,6 @@
 <?php
 
+require_once __DIR__ . '/../../src/repository/Bdd.php';
 
 class FilmRepository
 {
@@ -12,12 +13,12 @@ class FilmRepository
 
     public function getFilm($idFilm)
     {
-        $sql = "SELECT * FROM Film WHERE id_film = :idFilm";
+        $sql = "SELECT * FROM Film WHERE idfilm = :idfilm";
         $req = $this->connexionBdd->prepare($sql);
         $req->bindValue(':idFilm', $idFilm);
         $req->execute();
         $result = $req->fetch();
-        $film = new Film ($result["id_film"], $result["nom"], $result["duree"], $result["affiche"], $result["genre"], $result["age_min"], $result["realisateur"], $result["date_sortie"], $result["bande_annonce"], $result["resume"]);
+        $film = new Film ($result["id_film"], $result["nom"], $result["duree"], $result["affiche"], $result["genre"],$result["age_min"],$result["realisateur"],$result["date_sortie"],$result["bande_annonce"]);
         return $film;
     }
 
@@ -29,7 +30,7 @@ class FilmRepository
         $results = $req->fetchAll();
         $tabFilm = array();
         foreach ($results as $result) {
-            $film = new Film($result["id_film"], $result["nom"], $result["duree"], $result["affiche"], $result["genre"], $result["age_min"], $result["realisateur"], $result["date_sortie"], $result["bande_annonce"], $result["resume"]);
+            $film = new Film($result["id_film"], $result["nom"], $result["duree"], $result["affiche"], $result["genre"], $result["age_min"], $result["realisateur"], $result["date_sortie"], $result["bande_annonce"]);
             $tabFilm[] = $film;
         }
         return $tabFilm;
@@ -47,7 +48,6 @@ class FilmRepository
         $req->bindValue(':realisateur', $film->getRealisateur());
         $req->bindValue(':date_sortie', $film->getDateSortie());
         $req->bindValue(':bande_annonce', $film->getBandeAnnonce());
-        $req->bindValue(':resume', $film->getResume());
         $req->execute();
 
     }
@@ -69,8 +69,12 @@ class FilmRepository
         $req->bindValue(':realisateur', $film->getRealisateur());
         $req->bindValue(':date_sortie', $film->getDateSortie());
         $req->bindValue(':bande_annonce', $film->getBandeAnnonce());
-        $req->bindValue(':resume', $film->getResume());
         $req->execute();
+
+    }
+
+    public function getAll()
+    {
 
     }
 

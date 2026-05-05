@@ -1,5 +1,9 @@
 <?php
 
+namespace repository;
+
+use modele\Salle;
+
 class SalleRepository{
     private $connexionBdd;
     public function __construct()

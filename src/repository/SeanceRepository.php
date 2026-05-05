@@ -1,8 +1,9 @@
 <?php
 
-class SeanceRepository {
-    private $connexionBdd;
+namespace repository;
 
+class SeanceRepository{
+    private $connexionBdd;
     public function __construct()
     {
         $this->connexionBdd = (new Bdd())->getConnexionBdd();
@@ -12,10 +13,9 @@ class SeanceRepository {
     {
         $sql = "SELECT * FROM Seance WHERE id_seance = :idSeance";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idSeance', $idSeance, PDO::PARAM_INT);
+        $req->bindValue(':idSeance', $idSeance, \PDO::PARAM_INT);
         $req->execute();
         $result = $req->fetch();
-
         if (!$result) return null;
 
         return new Seance(
@@ -25,34 +25,12 @@ class SeanceRepository {
         );
     }
 
-    public function getSeancesByFilm($idFilm)
-    {
-        $sql = "SELECT * FROM Seance WHERE id_film = :idFilm ORDER BY date ASC";
-        $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idFilm', $idFilm, PDO::PARAM_INT);
-        $req->execute();
-        $results = $req->fetchAll();
-
-        $tabSeances = [];
-
-        foreach ($results as $result) {
-            $tabSeances[] = new Seance(
-                $result["id_seance"],
-                $result["date"],
-                $result["etat"]
-            );
-        }
-
-        return $tabSeances;
-    }
-
     public function getAllSeance()
     {
         $sql = "SELECT * FROM Seance ORDER BY date DESC";
         $req = $this->connexionBdd->prepare($sql);
         $req->execute();
         $results = $req->fetchAll();
-
         $tabSeance = [];
 
         foreach ($results as $result) {
@@ -68,11 +46,10 @@ class SeanceRepository {
 
     public function ajouterSeance(Seance $seance)
     {
-        $sql = "INSERT INTO Seance (date, etat, id_film) VALUES (:date, :etat, :idFilm)";
+        $sql = "INSERT INTO Seance (date, etat) VALUES (:date, :etat)";
         $req = $this->connexionBdd->prepare($sql);
         $req->bindValue(':date', $seance->getDate());
         $req->bindValue(':etat', $seance->getEtat());
-        $req->bindValue(':idFilm', $seance->getIdFilm());
         return $req->execute();
     }
 
@@ -93,4 +70,5 @@ class SeanceRepository {
         $req->bindValue(':idSeance', $idSeance);
         return $req->execute();
     }
+
 }
