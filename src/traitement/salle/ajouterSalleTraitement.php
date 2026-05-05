@@ -1,4 +1,7 @@
 <?php
+
+use repository\SalleRepository;
+
 require_once __DIR__ . '/../../repository/SalleRepository.php';
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { header('Location: /Cine_Lumiere/public/salle/ajouter.php'); exit; }
 $code = trim($_POST['code'] ?? '');

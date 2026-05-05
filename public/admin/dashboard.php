@@ -1,72 +1,136 @@
 <?php
 
-use repository\CodePromoRepository;
-use repository\FilmRepository;
-use repository\ReservationRepository;
-use repository\SalleRepository;
-use repository\SeanceRepository;
-
-require_once '../../src/repository/FilmRepository.php';
-require_once '../../src/repository/SalleRepository.php';
-require_once '../../src/repository/SeanceRepository.php';
-require_once '../../src/repository/ReservationRepository.php';
+// Chargement des repositories
+require_once __DIR__ . '/../../src/repository/FilmRepository.php';
+require_once __DIR__ . '/../../src/repository/SalleRepository.php';
+require_once __DIR__ . '/../../src/repository/SeanceRepository.php';
+require_once __DIR__ . '/../../src/repository/ReservationRepository.php';
+require_once __DIR__ . '/../../src/repository/CodePromoRepository.php';
 
 
+// Récupération des données
+$filmRepo        = new FilmRepository();
+$salleRepo       = new SalleRepository();
+$seanceRepo      = new SeanceRepository();
+$reservationRepo = new ReservationRepository();
+$promoRepo       = new CodePromoRepository();
 
-$films        = (new FilmRepository())->getAll();
-$salles       = (new SalleRepository())->getAll();
-$seanceRepo   = new SeanceRepository();
+$films        = $filmRepo->getAll();
+$salles       = $salleRepo->getAll();
 $seances      = $seanceRepo->getAll();
-$reservations = (new ReservationRepository())->getAll();
-$promos       = (new CodePromoRepository())->getAll();
+$reservations = $reservationRepo->getAll();
+$promos       = $promoRepo->getAll();
 
-$now           = new DateTime();
+$now = new DateTime();
+
+// Indicateurs
 $sallesActives = count(array_filter($salles, fn($s) => $s['etat'] === 'disponible'));
 $seancesAvenir = count(array_filter($seances, fn($s) => new DateTime($s['date']) > $now && $s['etat'] === 'programmée'));
 $resaAttente   = count(array_filter($reservations, fn($r) => $r['etat'] === 'en attente'));
 
-// Alertes CDC
+// Alertes
 $alertes = [];
 $filmsAvecSeance = array_unique(array_column($seances, 'ref_film'));
-foreach ($films as $f) {
-    if (!in_array($f['id_film'], $filmsAvecSeance)) { $alertes[] = "Le film \"".htmlspecialchars($f['nom'])."\" n'a aucune séance programmée."; break; }
-}
-foreach ($promos as $p) { if ($p['etat']==='expiré') { $alertes[] = "Des codes promotionnels sont expirés."; break; } }
-foreach ($seances as $s) { if ($s['etat']==='annulée') { $alertes[] = "Des séances ont été annulées."; break; } }
 
-// Prochaines séances (6 max)
-$prochaines = array_filter($seances, fn($s) => new DateTime($s['date']) > $now && $s['etat']==='programmée');
-usort($prochaines, fn($a,$b) => strcmp($a['date'],$b['date']));
+foreach ($films as $f) {
+    if (!in_array($f['id_film'], $filmsAvecSeance)) {
+        $alertes[] = "Le film \"" . htmlspecialchars($f['nom']) . "\" n'a aucune séance programmée.";
+        break;
+    }
+}
+
+foreach ($promos as $p) {
+    if ($p['etat'] === 'expiré') {
+        $alertes[] = "Des codes promotionnels sont expirés.";
+        break;
+    }
+}
+
+foreach ($seances as $s) {
+    if ($s['etat'] === 'annulée') {
+        $alertes[] = "Des séances ont été annulées.";
+        break;
+    }
+}
+
+// Prochaines séances
+$prochaines = array_filter($seances, fn($s) => new DateTime($s['date']) > $now && $s['etat'] === 'programmée');
+usort($prochaines, fn($a, $b) => strcmp($a['date'], $b['date']));
 $prochaines = array_slice($prochaines, 0, 6);
 
-// Dernières réservations (5 max)
+// Dernières réservations
 $dernieres = array_slice(array_reverse($reservations), 0, 5);
 
-$colSeance = ['programmée'=>'#1d4ed8','en cours'=>'#065f46','terminée'=>'#374151','annulée'=>'#7f1d1d'];
-$colResa   = ['en attente'=>'#92400e','confirmée'=>'#065f46','annulée'=>'#7f1d1d','remboursée'=>'#374151'];
+$colSeance = [
+        'programmée' => '#1d4ed8',
+        'en cours'   => '#065f46',
+        'terminée'   => '#374151',
+        'annulée'    => '#7f1d1d'
+];
+
+$colResa = [
+        'en attente'  => '#92400e',
+        'confirmée'   => '#065f46',
+        'annulée'     => '#7f1d1d',
+        'remboursée'  => '#374151'
+];
 ?>
-<?php include '../../src/includes/header.php'; ?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ciné Lumières</title>
+
+    <!-- CSS existants -->
+    <link href="../ressources/header.css" rel="stylesheet">
+    <link href="../ressources/footer.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<nav class="navbar navbar-expand-lg py-3">
+    <div class="container-fluid">
+
+        <a class="navbar-brand fs-3 fw-bold" href="../accueil.php">Cinéma Lumières</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuBurger">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="menuBurger">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="../accueil.php">🎬 Films</a></li>
+                <li class="nav-item"><a class="nav-link" href="../offre.html">💳 Offres</a></li>
+                <li class="nav-item"><a class="nav-link" href="../connexion.html">🔑 Connexion</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
 
 <h2 class="page-title">Indicateurs clés</h2>
 <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
         <a href="/Cine_Lumiere/public/film/liste.php" style="text-decoration:none">
-        <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Films</div><div style="font-size:2rem;font-weight:700"><?= count($films) ?></div></div>
+            <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Films</div><div style="font-size:2rem;font-weight:700"><?= count($films) ?></div></div>
         </a>
     </div>
     <div class="col-6 col-md-3">
         <a href="../salle/liste.php" style="text-decoration:none">
-        <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Salles actives</div><div style="font-size:2rem;font-weight:700"><?= $sallesActives ?></div></div>
+            <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Salles actives</div><div style="font-size:2rem;font-weight:700"><?= $sallesActives ?></div></div>
         </a>
     </div>
     <div class="col-6 col-md-3">
         <a href="../seance/liste.php" style="text-decoration:none">
-        <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Séances à venir</div><div style="font-size:2rem;font-weight:700"><?= $seancesAvenir ?></div></div>
+            <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Séances à venir</div><div style="font-size:2rem;font-weight:700"><?= $seancesAvenir ?></div></div>
         </a>
     </div>
     <div class="col-6 col-md-3">
         <a href="../reservation/liste.php" style="text-decoration:none">
-        <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Résa en attente</div><div style="font-size:2rem;font-weight:700"><?= $resaAttente ?></div></div>
+            <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Résa en attente</div><div style="font-size:2rem;font-weight:700"><?= $resaAttente ?></div></div>
         </a>
     </div>
 </div>
@@ -75,46 +139,46 @@ $colResa   = ['en attente'=>'#92400e','confirmée'=>'#065f46','annulée'=>'#7f1d
     <div class="col-lg-8">
         <h2 class="page-title">Prochaines séances</h2>
         <div class="card-dark p-0 mb-4">
-        <table class="table table-cl table-hover mb-0">
-            <thead><tr><th class="ps-3">Film</th><th>Salle</th><th>Date</th><th>Places restantes</th><th>État</th></tr></thead>
-            <tbody>
-            <?php if(empty($prochaines)): ?>
-                <tr><td colspan="5" class="text-center text-secondary py-3">Aucune séance à venir.</td></tr>
-            <?php else: foreach($prochaines as $s):
-                $restantes = $seanceRepo->getPlacesRestantes($s['id_seance'], $s['capacite_max']);
-            ?>
-                <tr>
-                    <td class="ps-3"><?= htmlspecialchars($s['film_nom']??'—') ?></td>
-                    <td><?= htmlspecialchars($s['salle_code']??'—') ?></td>
-                    <td><?= substr($s['date'],0,10) ?></td>
-                    <td><?= $restantes ?>/<?= $s['capacite_max'] ?></td>
-                    <td><span class="badge" style="background:<?= $colSeance[$s['etat']]??'#374151' ?>"><?= $s['etat'] ?></span></td>
-                </tr>
-            <?php endforeach; endif; ?>
-            </tbody>
-        </table>
+            <table class="table table-cl table-hover mb-0">
+                <thead><tr><th class="ps-3">Film</th><th>Salle</th><th>Date</th><th>Places restantes</th><th>État</th></tr></thead>
+                <tbody>
+                <?php if(empty($prochaines)): ?>
+                    <tr><td colspan="5" class="text-center text-secondary py-3">Aucune séance à venir.</td></tr>
+                <?php else: foreach($prochaines as $s):
+                    $restantes = $seanceRepo->getPlacesRestantes($s['id_seance'], $s['capacite_max']);
+                    ?>
+                    <tr>
+                        <td class="ps-3"><?= htmlspecialchars($s['film_nom']??'—') ?></td>
+                        <td><?= htmlspecialchars($s['salle_code']??'—') ?></td>
+                        <td><?= substr($s['date'],0,10) ?></td>
+                        <td><?= $restantes ?>/<?= $s['capacite_max'] ?></td>
+                        <td><span class="badge" style="background:<?= $colSeance[$s['etat']]??'#374151' ?>"><?= $s['etat'] ?></span></td>
+                    </tr>
+                <?php endforeach; endif; ?>
+                </tbody>
+            </table>
         </div>
 
         <h2 class="page-title">Dernières réservations</h2>
         <div class="card-dark p-0">
-        <table class="table table-cl table-hover mb-0">
-            <thead><tr><th class="ps-3">#</th><th>Film</th><th>Places</th><th>Total</th><th>État</th></tr></thead>
-            <tbody>
-            <?php if(empty($dernieres)): ?>
-                <tr><td colspan="5" class="text-center text-secondary py-3">Aucune réservation.</td></tr>
-            <?php else: foreach($dernieres as $r):
-                $total = ($r['nbre_places_adulte']*15)+($r['nbre_places_senior']*5)+($r['nbre_places_etudiant']*10);
-            ?>
-                <tr>
-                    <td class="ps-3">#<?= $r['id_reservation'] ?></td>
-                    <td><?= htmlspecialchars($r['film_nom']??'—') ?></td>
-                    <td><?= $r['nbre_places_adulte']+$r['nbre_places_senior']+$r['nbre_places_etudiant'] ?></td>
-                    <td><?= number_format($total,2) ?> €</td>
-                    <td><span class="badge" style="background:<?= $colResa[$r['etat']]??'#374151' ?>"><?= $r['etat'] ?></span></td>
-                </tr>
-            <?php endforeach; endif; ?>
-            </tbody>
-        </table>
+            <table class="table table-cl table-hover mb-0">
+                <thead><tr><th class="ps-3">#</th><th>Film</th><th>Places</th><th>Total</th><th>État</th></tr></thead>
+                <tbody>
+                <?php if(empty($dernieres)): ?>
+                    <tr><td colspan="5" class="text-center text-secondary py-3">Aucune réservation.</td></tr>
+                <?php else: foreach($dernieres as $r):
+                    $total = ($r['nbre_places_adulte']*15)+($r['nbre_places_senior']*5)+($r['nbre_places_etudiant']*10);
+                    ?>
+                    <tr>
+                        <td class="ps-3">#<?= $r['id_reservation'] ?></td>
+                        <td><?= htmlspecialchars($r['film_nom']??'—') ?></td>
+                        <td><?= $r['nbre_places_adulte']+$r['nbre_places_senior']+$r['nbre_places_etudiant'] ?></td>
+                        <td><?= number_format($total,2) ?> €</td>
+                        <td><span class="badge" style="background:<?= $colResa[$r['etat']]??'#374151' ?>"><?= $r['etat'] ?></span></td>
+                    </tr>
+                <?php endforeach; endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -130,12 +194,23 @@ $colResa   = ['en attente'=>'#92400e','confirmée'=>'#065f46','annulée'=>'#7f1d
 
         <h2 class="page-title">Actions rapides</h2>
         <div class="card-dark"><div class="d-grid gap-2">
-            <a href="../film/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Ajouter un film</a>
-            <a href="../salle/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Ajouter une salle</a>
-            <a href="../seance/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Programmer une séance</a>
-            <a href="../reservation/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Ajouter une réservation</a>
-            <a href="../codepromo/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Créer un code promo</a>
-        </div></div>
+                <a href="../film/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Ajouter un film</a>
+                <a href="../salle/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Ajouter une salle</a>
+                <a href="../seance/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Programmer une séance</a>
+                <a href="../reservation/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Ajouter une réservation</a>
+                <a href="../codepromo/ajouter.php" class="btn btn-cl btn-sm"><i class="bi bi-plus-lg me-1"></i>Créer un code promo</a>
+            </div></div>
     </div>
 </div>
-<?php include '../../src/includes/footer.php'; ?>
+<footer class="text-white py-4 mt-5">
+    <div class="container text-center">
+        <p class="mb-2 fs-5">
+            © 2025 – Tous droits réservés Anaïs Kriegel--Grapain - Abdel-Hamid El-Ferkh -
+            Younes Leulmi - Walid Souali
+        </p>
+    </div>
+</footer>
+
+</body>
+</html>
+

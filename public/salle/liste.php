@@ -1,4 +1,7 @@
 <?php
+
+use repository\SalleRepository;
+
 require_once '../../src/repository/SalleRepository.php';
 $salles = (new SalleRepository())->getAll();
 $msg = $_GET['msg'] ?? '';

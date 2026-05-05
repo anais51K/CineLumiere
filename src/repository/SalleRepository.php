@@ -1,60 +1,78 @@
 <?php
+require_once __DIR__ . '/../bdd/Bdd.php';
 
-namespace repository;
-
-use modele\Salle;
-
-class SalleRepository{
+class SalleRepository
+{
     private $connexionBdd;
+
     public function __construct()
     {
         $this->connexionBdd = (new Bdd())->getConnexionBdd();
     }
 
-    public function getSalle($idSalle){
-        $sql = "SELECT * FROM CodePromo WHERE idSalle = :idSalle";
+    public function getSalle($idSalle)
+    {
+        $sql = "SELECT * FROM salle WHERE id_salle = :id_salle";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idSalle', $idSalle);
+        $req->bindValue(':id_salle', $idSalle, PDO::PARAM_INT);
         $req->execute();
-        $result = $req->fetch();
-        $salle = new Salle($result["id-salle"],$result["capacite_max"],$result["code"],$result["etat"]);
-        return $salle;
+        return $req->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getAllSalle(){
-        $sql = "SELECT * FROM Salle";
+    public function getAllSalle()
+    {
+        $sql = "SELECT * FROM salle ORDER BY code ASC";
         $req = $this->connexionBdd->prepare($sql);
         $req->execute();
-        $results = $req->fetchAll();
-        $tabSalle = array();
-        foreach ($results as $result) {
-            $salle = new Salle($result["id_salle"],$result["capacite_max"],$result["code"],$result["etat"]);
-            $tabSalle[] = $salle;
-        }
-        return $tabSalle;
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function ajouterSalle(Salle $salle){
-        $sql= "";
+    public function ajouterSalle($data)
+    {
+        $sql = "INSERT INTO salle (code, capacite_max, etat) VALUES (:code, :capacite_max, :etat)";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':codePromo', $salle->getCodePromo());
-        $req->bindValue(':codePromo', $salle->getCodePromo());
-        $req->bindValue(':codePromo', $salle->getCodePromo());
+        $req->bindValue(':code',        strtoupper($data['code']));
+        $req->bindValue(':capacite_max',$data['capacite_max'], PDO::PARAM_INT);
+        $req->bindValue(':etat',        $data['etat'] ?? 'disponible');
         $req->execute();
+        return $this->connexionBdd->lastInsertId();
     }
 
-    public function supprimerSalle(Salle $salle){
-        $sql= "";
+    public function modifierSalle($id, $data)
+    {
+        $sql = "UPDATE salle SET code=:code, capacite_max=:capacite_max, etat=:etat WHERE id_salle=:id_salle";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idSalle', $salle->getIdSalle());
-        $req->execute();
+        $req->bindValue(':code',        strtoupper($data['code']));
+        $req->bindValue(':capacite_max',$data['capacite_max'], PDO::PARAM_INT);
+        $req->bindValue(':etat',        $data['etat']);
+        $req->bindValue(':id_salle',    $id, PDO::PARAM_INT);
+        return $req->execute();
     }
 
-    public function modifierSalle(Salle $salle){
-        $sql= "";
+    public function supprimerSalle($idSalle)
+    {
+        // Désactivation (pas suppression physique)
+        $sql = "UPDATE salle SET etat='fermée' WHERE id_salle = :id_salle";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idSalle', $salle->getIdSalle());
-        $req->execute();
+        $req->bindValue(':id_salle', $idSalle, PDO::PARAM_INT);
+        return $req->execute();
     }
 
+    public function estOccupee($idSalle, $date, $exclure = null)
+    {
+        $sql = "SELECT COUNT(*) FROM seance WHERE ref_salle=:s AND DATE(date)=DATE(:d) AND etat!='annulée'";
+        if ($exclure) $sql .= " AND id_seance!=:e";
+        $req = $this->connexionBdd->prepare($sql);
+        $p = [':s' => $idSalle, ':d' => $date];
+        if ($exclure) $p[':e'] = $exclure;
+        $req->execute($p);
+        return (int)$req->fetchColumn() > 0;
+    }
+
+    // Alias
+    public function getAll()    { return $this->getAllSalle(); }
+    public function getById($id){ return $this->getSalle($id); }
+    public function ajouter($d) { return $this->ajouterSalle($d); }
+    public function modifier($id,$d){ return $this->modifierSalle($id,$d); }
+    public function desactiver($id){ return $this->supprimerSalle($id); }
 }

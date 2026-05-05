@@ -4,7 +4,7 @@ class Bdd{
     private $connexionBdd;
     private $identifiant = "admin";
     private $motDePasse = "1234";
-    private $nomBdd = "cine_lumiere";
+    private $nomBdd = "cine_lumieres";
     private $host = "localhost";
 
     public function __construct()

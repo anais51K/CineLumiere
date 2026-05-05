@@ -1,4 +1,7 @@
 <?php
+
+use repository\FilmRepository;
+
 require_once "../src/bdd/Bdd.php";
 require_once "../src/modele/Film.php";
 require_once "../src/repository/FilmRepository.php";

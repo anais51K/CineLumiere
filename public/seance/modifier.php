@@ -1,4 +1,7 @@
 <?php
+
+use repository\SalleRepository;
+
 require_once '../../src/repository/SeanceRepository.php';
 require_once '../../src/repository/FilmRepository.php';
 require_once '../../src/repository/SalleRepository.php';

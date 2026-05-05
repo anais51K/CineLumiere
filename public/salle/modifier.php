@@ -1,4 +1,7 @@
 <?php
+
+use repository\SalleRepository;
+
 require_once '../../src/repository/SalleRepository.php';
 $id = (int)($_GET['id'] ?? 0);
 $s  = (new SalleRepository())->getById($id);
