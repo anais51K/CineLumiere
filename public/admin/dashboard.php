@@ -1,6 +1,8 @@
 <?php
 
 // Chargement des repositories
+use repository\FilmRepository;
+
 require_once __DIR__ . '/../../src/repository/FilmRepository.php';
 require_once __DIR__ . '/../../src/repository/SalleRepository.php';
 require_once __DIR__ . '/../../src/repository/SeanceRepository.php';
@@ -33,8 +35,8 @@ $alertes = [];
 $filmsAvecSeance = array_unique(array_column($seances, 'ref_film'));
 
 foreach ($films as $f) {
-    if (!in_array($f['id_film'], $filmsAvecSeance)) {
-        $alertes[] = "Le film \"" . htmlspecialchars($f['nom']) . "\" n'a aucune séance programmée.";
+    if (!in_array($f->getIdFilm(), $filmsAvecSeance)) {
+        $alertes[] = "Le film \"" . htmlspecialchars($f->getNom()) . "\" n'a aucune séance programmée.";
         break;
     }
 }
@@ -83,8 +85,9 @@ $colResa = [
     <title>Ciné Lumières</title>
 
     <!-- CSS existants -->
-    <link href="../ressources/header.css" rel="stylesheet">
-    <link href="../ressources/footer.css" rel="stylesheet">
+    <link href="../../ressources/header.css" rel="stylesheet">
+    <link href="../../ressources/footer.css" rel="stylesheet">
+    <link href="../../ressources/dashboard.css" rel="stylesheet">
 
 </head>
 
