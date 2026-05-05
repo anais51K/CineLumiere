@@ -81,7 +81,7 @@ class UtilisateurRepository
 
     public function ajouterUtilisateur(Utilisateur $utilisateur)
     {
-        $sql = "INSERT INTO Utilisateur (nom, prenom, date_naissance, email, telephone, adresse, mot_de_passe, statut, gestion)
+        $sql = "INSERT INTO Utilisateur (nom, prenom, date_naissance, email, telephone, adresse, mdp, statut, gestion)
                 VALUES (:nom, :prenom, :dateNaissance, :email, :telephone, :adresse, :motDePasse, :statut, :gestion)";
         $req = $this->connexionBdd->prepare($sql);
         $req->bindValue(':nom', $utilisateur->getNom());
@@ -105,7 +105,7 @@ class UtilisateurRepository
                     email = :email,
                     telephone = :telephone,
                     adresse = :adresse,
-                    mot_de_passe = :motDePasse,
+                    mdp = :motDePasse,
                     statut = :statut,
                     gestion = :gestion
                 WHERE id_utilisateur = :idUtilisateur";
