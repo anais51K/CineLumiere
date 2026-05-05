@@ -54,12 +54,12 @@ $_SESSION["user"] = [
     "prenom" => $user["prenom"],
 ];
 
-// 🔵 Si redirect_data est présent → retour au tunnel de réservation
+/*🔵 Si redirect_data est présent → retour au tunnel de réservation
 if (!empty($_GET["redirect_data"])) {
     header("Location: ../../public/recapitulatif_achat.html?data=" . urlencode($_GET["redirect_data"]));
     exit();
 }
-
+*/
 // 🔵 Sinon → accueil
 header("Location: ../../public/accueil.php");
 exit();
