@@ -1,130 +1,184 @@
-/* ===========================
-   THEME GLOBAL (clair)
-=========================== */
+/* =============================================
+   Dashboard – Ciné Lumières  |  Light mode
+   ============================================= */
+
+/* ── Reset & base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    background: #f8fafc; /* blanc très doux */
-    color: #1e293b;
-    font-family: "Inter", sans-serif;
-    margin: 0;
-    padding: 0;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f8f7ff;
+    color: #1e1b4b;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-.page-title {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 25px 0 15px;
-    color: #1e293b;
-}
-
-/* ===========================
-   CARDS
-=========================== */
-.card-dark {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 18px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    transition: transform .15s ease, box-shadow .15s ease;
-}
-
-.card-dark:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
-}
-
-/* ===========================
-   TABLEAUX
-=========================== */
-.table-cl {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .95rem;
-}
-
-.table-cl thead {
-    background: #e2e8f0;
-    color: #1e293b;
-}
-
-.table-cl th, .table-cl td {
-    padding: 12px 10px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.table-cl tbody tr:hover {
-    background: #f1f5f9;
-}
-
-/* ===========================
-   BADGES (états)
-=========================== */
-.badge {
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: .75rem;
-    font-weight: 600;
-    color: white;
-    text-transform: capitalize;
-}
-
-/* ===========================
-   BOUTONS
-=========================== */
-.btn-cl {
-    background: #3b82f6; /* bleu moderne */
-    color: white;
-    border: none;
-    padding: 10px 14px;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: background .15s ease, transform .15s ease;
-}
-
-.btn-cl:hover {
-    background: #2563eb;
-    transform: translateY(-2px);
-}
-
-/* ===========================
-   ALERTES
-=========================== */
-.alert-box {
-    border-left: 4px solid #f59e0b;
-    background: #fff7ed;
-    padding: 10px 12px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    color: #b45309;
-    font-size: .9rem;
-}
-
-/* ===========================
-   NAVBAR (clair)
-=========================== */
+/* ── Navbar ── */
 .navbar {
     background: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 0.5px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0,0,0,.04);
 }
 
 .navbar-brand {
-    color: #1e293b !important;
+    color: #4f46e5 !important;
+    letter-spacing: -.02em;
 }
 
 .nav-link {
-    color: #475569 !important;
-    font-weight: 500;
+    color: #374151 !important;
+    font-size: 14px;
+    padding: .4rem .85rem !important;
+    border-radius: 8px;
+    transition: background .15s;
 }
 
 .nav-link:hover {
-    color: #3b82f6 !important;
+    background: #f3f4f6;
+    color: #4f46e5 !important;
 }
 
-/* ===========================
-   FOOTER
-=========================== */
-footer {
-    background: #e2e8f0;
-    color: #1e293b;
+/* ── Page title ── */
+.page-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #6b7280;
+    margin: 1.5rem 0 .6rem;
+}
+
+/* ── KPI cards ── */
+.card-dark {
+    background: #ffffff;
+    border: 0.5px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: box-shadow .15s, border-color .15s;
+}
+
+.card-dark:hover {
+    border-color: #c7d2fe;
+    box-shadow: 0 2px 8px rgba(99,102,241,.08);
+}
+
+/* Accent top border sur les cartes KPI (à cibler via JS ou wrapper) */
+.card-kpi {
+    border-top: 3px solid #6366f1;
+}
+
+/* ── Tableaux ── */
+.table-cl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #111827;
+}
+
+.table-cl thead tr {
+    border-bottom: 0.5px solid #e5e7eb;
+}
+
+.table-cl th {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: #9ca3af;
+    padding: 10px 14px;
+    background: #fafafa;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table-cl td {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #f3f4f6;
+    vertical-align: middle;
+}
+
+.table-cl tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.table-cl.table-hover tbody tr:hover td {
+    background: #f5f3ff;
+}
+
+/* ── Badges ── */
+.badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 9px;
+    border-radius: 20px;
+    letter-spacing: .02em;
+    white-space: nowrap;
+}
+
+/* États séances */
+.badge[style*="#1d4ed8"] { background: #dbeafe !important; color: #1e40af !important; }
+.badge[style*="#065f46"] { background: #d1fae5 !important; color: #065f46 !important; }
+.badge[style*="#374151"] { background: #f3f4f6 !important; color: #374151 !important; }
+.badge[style*="#7f1d1d"] { background: #fee2e2 !important; color: #991b1b !important; }
+
+/* États réservations */
+.badge[style*="#92400e"] { background: #fef3c7 !important; color: #92400e !important; }
+
+/* ── Alertes ── */
+.card-dark div[style*="border-left"] {
+    border-radius: 0 6px 6px 0;
+    background: #fff7ed;
+    padding: 8px 10px !important;
+    margin-bottom: 8px;
+    font-size: 12.5px;
+    color: #92400e !important;
+}
+
+/* ── Boutons actions rapides ── */
+.btn-cl {
+    background: #f5f3ff;
+    border: 0.5px solid #c4b5fd;
+    color: #4f46e5;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 8px 14px;
     text-align: center;
+    transition: background .15s, border-color .15s, transform .1s;
+    text-decoration: none;
+    display: block;
+}
+
+.btn-cl:hover {
+    background: #ede9fe;
+    border-color: #a78bfa;
+    color: #3730a3;
+    transform: translateY(-1px);
+}
+
+.btn-cl:active {
+    transform: translateY(0);
+}
+
+/* ── Footer ── */
+footer {
+    background: #ffffff;
+    border-top: 0.5px solid #e5e7eb;
+    color: #6b7280 !important;
+    font-size: 13px;
+}
+
+footer p { color: #6b7280 !important; }
+
+/* ── Utilitaires ── */
+.text-secondary { color: #9ca3af !important; }
+.text-success    { color: #059669 !important; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .page-title { margin-top: 1rem; }
+    .card-dark   { padding: .75rem 1rem; }
+    .table-cl th,
+    .table-cl td { padding: 8px 10px; }
 }
