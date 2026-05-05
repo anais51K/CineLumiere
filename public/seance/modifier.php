@@ -16,7 +16,7 @@ $err = $_GET['err'] ?? '';
 <h2 class="page-title">Modifier la séance</h2>
 <?php if($err): ?><div class="msg-err"><?= htmlspecialchars($err) ?></div><?php endif; ?>
 <div class="card-dark" style="max-width:550px">
-<form method="POST" action="../../src/traitement/seance/modifierSeanceTraitement.php">
+<form method="POST" action="/Cine_Lumiere/src/traitement/seance/modifierSeanceTraitement.php">
     <input type="hidden" name="id" value="<?= $s['id_seance'] ?>">
     <div class="row g-3">
         <div class="col-12"><label class="form-label">Film *</label>

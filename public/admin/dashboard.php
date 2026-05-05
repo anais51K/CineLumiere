@@ -42,7 +42,7 @@ $colResa   = ['en attente'=>'#92400e','confirmée'=>'#065f46','annulée'=>'#7f1d
 <h2 class="page-title">Indicateurs clés</h2>
 <div class="row g-3 mb-4">
     <div class="col-6 col-md-3">
-        <a href="../../../../CineLumiere/public/film/liste.php" style="text-decoration:none">
+        <a href="/Cine_Lumiere/public/film/liste.php" style="text-decoration:none">
         <div class="card-dark text-center py-3"><div style="color:#9ca3af;font-size:.8rem;text-transform:uppercase">Films</div><div style="font-size:2rem;font-weight:700"><?= count($films) ?></div></div>
         </a>
     </div>

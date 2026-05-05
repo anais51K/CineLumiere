@@ -8,7 +8,7 @@ if (!$r) { header('Location: liste.php'); exit; }
 <h2 class="page-title">Supprimer la réservation</h2>
 <div class="card-dark" style="max-width:500px">
     <p>Supprimer la réservation <strong>#<?= $r['id_reservation'] ?></strong> (<?= htmlspecialchars($r['film_nom']??'') ?>) ?</p>
-    <form method="POST" action="../../src/traitement/reservation/supprimerReservationTraitement.php" class="d-flex gap-2">
+    <form method="POST" action="/Cine_Lumiere/src/traitement/reservation/supprimerReservationTraitement.php" class="d-flex gap-2">
         <input type="hidden" name="id" value="<?= $r['id_reservation'] ?>">
         <button type="submit" class="btn btn-del">Oui, supprimer</button>
         <a href="liste.php" class="btn btn-secondary">Annuler</a>

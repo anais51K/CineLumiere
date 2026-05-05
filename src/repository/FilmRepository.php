@@ -1,8 +1,5 @@
 <?php
-
-namespace repository;
-
-use modele\Film;
+require_once __DIR__ . '/../bdd/Bdd.php';
 
 class FilmRepository
 {
@@ -15,64 +12,68 @@ class FilmRepository
 
     public function getFilm($idFilm)
     {
-        $sql = "SELECT * FROM Film WHERE idfilm = :idfilm";
+        $sql = "SELECT * FROM film WHERE id_film = :id_film";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idFilm', $idFilm);
+        $req->bindValue(':id_film', $idFilm, PDO::PARAM_INT);
         $req->execute();
-        $result = $req->fetch();
-        $film = new Film ($result["id_film"], $result["nom"], $result["duree"], $result["affiche"], $result["genre"],$result["age_min"],$result["realisateur"],$result["date_sortie"],$result["bande_annonce"]);
-        return $film;
+        return $req->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getAllFilm()
     {
-        $sql = "SELECT * FROM Film";
+        $sql = "SELECT * FROM film ORDER BY nom ASC";
         $req = $this->connexionBdd->prepare($sql);
         $req->execute();
-        $results = $req->fetchAll();
-        $tabFilm = array();
-        foreach ($results as $result) {
-            $film = new Film($result["id_film"], $result["nom"], $result["duree"], $result["affiche"], $result["genre"], $result["age_min"], $result["realisateur"], $result["date_sortie"], $result["bande_annonce"]);
-            $tabFilm[] = $film;
-        }
-        return $tabFilm;
+        return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function ajouterFilm(Film $film)
+    public function ajouterFilm($data)
     {
-        $sql = "Insert Into ...";
+        $sql = "INSERT INTO film (nom, duree, affiche, genre, age_min, realisateur, date_sortie, bande_annonce)
+                VALUES (:nom, :duree, :affiche, :genre, :age_min, :realisateur, :date_sortie, :bande_annonce)";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':nom', $film->getNom());
-        $req->bindValue(':duree', $film->getDuree());
-        $req->binValue(':affiche', $film->getAffiche());
-        $req->bindValue(':genre', $film->getGenre());
-        $req->bindValue(':age_min', $film->getAgeMin());
-        $req->bindValue(':realisateur', $film->getRealisateur());
-        $req->bindValue(':date_sortie', $film->getDateSortie());
-        $req->bindValue(':bande_annonce', $film->getBandeAnnonce());
+        $req->bindValue(':nom',          $data['nom']);
+        $req->bindValue(':duree',        $data['duree'],         PDO::PARAM_INT);
+        $req->bindValue(':affiche',      $data['affiche']        ?? null);
+        $req->bindValue(':genre',        $data['genre']          ?? null);
+        $req->bindValue(':age_min',      $data['age_min']        ?? 0, PDO::PARAM_INT);
+        $req->bindValue(':realisateur',  $data['realisateur']    ?? null);
+        $req->bindValue(':date_sortie',  $data['date_sortie']    ?? null);
+        $req->bindValue(':bande_annonce',$data['bande_annonce']  ?? null);
         $req->execute();
-
+        return $this->connexionBdd->lastInsertId();
     }
 
-    public function supprimerFilm($idFilm){
-        $sql = "DELETE FROM Film WHERE idfilm = :idfilm";
+    public function modifierFilm($id, $data)
+    {
+        $sql = "UPDATE film SET nom=:nom, duree=:duree, affiche=:affiche, genre=:genre,
+                age_min=:age_min, realisateur=:realisateur, date_sortie=:date_sortie,
+                bande_annonce=:bande_annonce WHERE id_film=:id_film";
         $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':idfilm', $idFilm);
-        $req->execute();
-    }
-    public function modifierFilm(Film $film){
-        $sql = "";
-        $req = $this->connexionBdd->prepare($sql);
-        $req->bindValue(':nom', $film->getNom());
-        $req->bindValue(':duree', $film->getDuree());
-        $req->bindValue(':affiche', $film->getAffiche());
-        $req->bindValue(':genre', $film->getGenre());
-        $req->bindValue(':age_min', $film->getAgeMin());
-        $req->bindValue(':realisateur', $film->getRealisateur());
-        $req->bindValue(':date_sortie', $film->getDateSortie());
-        $req->bindValue(':bande_annonce', $film->getBandeAnnonce());
-        $req->execute();
-
+        $req->bindValue(':nom',          $data['nom']);
+        $req->bindValue(':duree',        $data['duree'],         PDO::PARAM_INT);
+        $req->bindValue(':affiche',      $data['affiche']        ?? null);
+        $req->bindValue(':genre',        $data['genre']          ?? null);
+        $req->bindValue(':age_min',      $data['age_min']        ?? 0, PDO::PARAM_INT);
+        $req->bindValue(':realisateur',  $data['realisateur']    ?? null);
+        $req->bindValue(':date_sortie',  $data['date_sortie']    ?? null);
+        $req->bindValue(':bande_annonce',$data['bande_annonce']  ?? null);
+        $req->bindValue(':id_film',      $id,                    PDO::PARAM_INT);
+        return $req->execute();
     }
 
+    public function supprimerFilm($idFilm)
+    {
+        $sql = "DELETE FROM film WHERE id_film = :id_film";
+        $req = $this->connexionBdd->prepare($sql);
+        $req->bindValue(':id_film', $idFilm, PDO::PARAM_INT);
+        return $req->execute();
+    }
+
+    // Alias pour compatibilité avec les pages admin
+    public function getAll()    { return $this->getAllFilm(); }
+    public function getById($id){ return $this->getFilm($id); }
+    public function ajouter($d) { return $this->ajouterFilm($d); }
+    public function modifier($id,$d){ return $this->modifierFilm($id,$d); }
+    public function supprimer($id)  { return $this->supprimerFilm($id); }
 }

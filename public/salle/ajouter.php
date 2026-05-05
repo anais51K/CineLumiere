@@ -3,7 +3,7 @@
 <h2 class="page-title">Ajouter une salle</h2>
 <?php if($err): ?><div class="msg-err"><?= htmlspecialchars($err) ?></div><?php endif; ?>
 <div class="card-dark" style="max-width:500px">
-<form method="POST" action="../../src/traitement/salle/ajouterSalleTraitement.php">
+<form method="POST" action="/Cine_Lumiere/src/traitement/salle/ajouterSalleTraitement.php">
     <div class="row g-3">
         <div class="col-md-6"><label class="form-label">Code *</label><input class="form-control" name="code" placeholder="SALLE-A" required></div>
         <div class="col-md-6"><label class="form-label">Capacité max *</label><input class="form-control" type="number" name="capacite_max" min="1" required></div>

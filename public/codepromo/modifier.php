@@ -9,7 +9,7 @@ $err = $_GET['err'] ?? '';
 <h2 class="page-title">Modifier le code promo</h2>
 <?php if($err): ?><div class="msg-err"><?= htmlspecialchars($err) ?></div><?php endif; ?>
 <div class="card-dark" style="max-width:450px">
-<form method="POST" action="../../src/traitement/codepromo/modifierCodePromoTraitement.php">
+<form method="POST" action="/Cine_Lumiere/src/traitement/codepromo/modifierCodePromoTraitement.php">
     <input type="hidden" name="id" value="<?= $p['id_code_promo'] ?>">
     <div class="row g-3">
         <div class="col-md-5"><label class="form-label">Code *</label><input class="form-control" name="code" value="<?= htmlspecialchars($p['code']) ?>" style="text-transform:uppercase" required></div>
