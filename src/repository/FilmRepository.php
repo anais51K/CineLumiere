@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../../src/repository/Bdd.php';
+require_once '../src/repository/FilmRepository.php';
 
 class FilmRepository
 {

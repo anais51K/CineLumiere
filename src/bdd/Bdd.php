@@ -2,8 +2,8 @@
 
 class Bdd{
     private $connexionBdd;
-    private $identifiant = "root";
-    private $motDePasse = "";
+    private $identifiant = "admin";
+    private $motDePasse = "1234";
     private $nomBdd = "cine_lumiere";
     private $host = "localhost";
 

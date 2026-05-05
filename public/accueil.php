@@ -24,7 +24,7 @@ $films= $filmRepository->getAllFilm();
 <nav class="navbar navbar-expand-lg py-3">
     <div class="container-fluid">
 
-        <a class="navbar-brand fs-3 fw-bold" href="accueil.html">Cinéma Lumières</a>
+        <a class="navbar-brand fs-3 fw-bold" href="accueil.php">Cinéma Lumières</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuBurger">
             <span class="navbar-toggler-icon"></span>
